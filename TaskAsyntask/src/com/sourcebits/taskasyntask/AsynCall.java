@@ -3,14 +3,17 @@ package com.sourcebits.taskasyntask;
 import android.os.AsyncTask;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 public class AsynCall extends AsyncTask<Integer,Integer ,Integer>
 {
 	ProgressBar progress;
+	TextView result;
 	
-    public AsynCall(ProgressBar progress) 
+    public AsynCall(ProgressBar progress, TextView result) 
     {
 		this.progress = progress;
+		this.result = result;
 	}
     
 	@Override
@@ -18,7 +21,8 @@ public class AsynCall extends AsyncTask<Integer,Integer ,Integer>
 	{
 		super.onPreExecute();
 		progress.setVisibility( View.VISIBLE);
-		progress.setMax(60);
+		progress.setMax(100);
+		result.setText("0 / 100");
 	}
 
 	
@@ -28,15 +32,14 @@ public class AsynCall extends AsyncTask<Integer,Integer ,Integer>
 	{
 		
 		try {  
-	        int totalSecs = params[0].intValue();
+	        //int totalSecs = params[0].intValue();
 	    
-	        for (int i = 1; i <= totalSecs; i++) {
+	        for (int i = 1; i <= 100; i++) {
 	           
-	           Integer[] percentage = new Integer[1000*60];
-	           Thread.sleep(percentage.length);
+	           Thread.sleep(1000);
 	  	     
 	     
-	           publishProgress(percentage);
+	           publishProgress(i);
 	        }  
 	      } catch (InterruptedException e) {
 	          e.printStackTrace();
@@ -51,8 +54,11 @@ public class AsynCall extends AsyncTask<Integer,Integer ,Integer>
 	protected void onProgressUpdate(Integer... values) 
 	{
 		
-		super.onProgressUpdate(values[0]); 
-	    progress.setProgress(values[0]);
+		super.onProgressUpdate(values[0]);
+		
+		progress.setProgress(values[0]);
+		String s = values[0]+" / 100";
+		result.setText(s);
 	}
 
 

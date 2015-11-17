@@ -7,11 +7,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 public class MainActivity extends Activity 
 {
 	private Button bExecute;
 	private ProgressBar progress;
+	private TextView result;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
@@ -20,6 +22,7 @@ public class MainActivity extends Activity
 		setContentView(R.layout.activity_main);
 		bExecute = (Button)findViewById(R.id.button);
 		progress = (ProgressBar)findViewById(R.id.userProgressBar);
+		result = (TextView)findViewById(R.id.textResult);
 		
 		bExecute.setOnClickListener(new View.OnClickListener() 
 		{
@@ -27,7 +30,7 @@ public class MainActivity extends Activity
 			@Override
 			public void onClick(View arg0) 
 			{
-				AsynCall asynCall = new AsynCall(progress);
+				AsynCall asynCall = new AsynCall(progress,result);
 				asynCall.execute();
 			}
 		});
